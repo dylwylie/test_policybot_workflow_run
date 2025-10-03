@@ -1,0 +1,18 @@
+name: Parent Workflow
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  parent-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run parent workflow task
+        run: |
+          echo "Running parent workflow task..."
+          sleep 5
+          echo "Parent workflow completed successfully"

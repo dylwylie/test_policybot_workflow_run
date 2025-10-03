@@ -1,0 +1,19 @@
+policy:
+  approval:
+    - name: Parent Workflow succeeded
+      requires:
+        conditions:
+          has_workflow_result:
+            conclusions:
+              - success
+            workflows:
+              - .github/workflows/parent.yml
+    - name: Dependent Workflow succeeded or skipped
+      requires:
+        conditions:
+          has_workflow_result:
+            conclusions:
+              - skipped
+              - success
+            workflows:
+              - .github/workflows/dependent.yml
