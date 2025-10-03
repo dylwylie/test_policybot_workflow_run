@@ -1,6 +1,6 @@
 policy:
   approval:
-    - name: Parent Workflow succeeded
+    - name: Parent Workflow with Matrix Jobs succeeded
       requires:
         conditions:
           has_workflow_result:
@@ -8,12 +8,3 @@ policy:
               - success
             workflows:
               - .github/workflows/parent.yml
-    - name: Dependent Workflow succeeded or skipped
-      requires:
-        conditions:
-          has_workflow_result:
-            conclusions:
-              - skipped
-              - success
-            workflows:
-              - .github/workflows/dependent.yml
