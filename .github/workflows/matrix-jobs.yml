@@ -1,0 +1,26 @@
+name: Matrix Jobs
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: string
+
+jobs:
+  matrix-job:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [app1, app2, app3]
+        version: [v1, v2]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Deploy ${{ matrix.target }} ${{ matrix.version }}
+        run: |
+          echo "Deploying ${{ matrix.target }} version ${{ matrix.version }} to ${{ inputs.environment }}"
+          sleep 10
+          echo "Successfully deployed ${{ matrix.target }} ${{ matrix.version }}"

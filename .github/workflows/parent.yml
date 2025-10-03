@@ -5,14 +5,10 @@ on:
     branches: [ main ]
 
 jobs:
-  parent-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Run parent workflow task
-        run: |
-          echo "Running parent workflow task..."
-          sleep 5
-          echo "Parent workflow completed successfully"
+  call-reusable-workflow:
+    concurrency:
+      group: deploy-${{ github.ref }}
+      cancel-in-progress: false
+    uses: ./.github/workflows/matrix-jobs.yml
+    with:
+      environment: staging
